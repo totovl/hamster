@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Te amo piezoza ❤️ Tarjeta Romántica</title>
+  
+  <!-- Google Fonts for Cute and Cursive Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & CSS Custom Properties */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-gradient-1: #fff1f2;
+      --bg-gradient-2: #ffe4e6;
+      --bg-gradient-3: #fce7f3;
+      --primary-color: #ff4d6d;
+      --primary-hover: #ff758f;
+      --primary-light: #fff5f6;
+      --text-color: #4a1d24;
+      --text-light: #7a5c61;
+      --card-bg: rgba(255, 255, 255, 0.55);
+      --card-border: rgba(255, 255, 255, 0.7);
+      --shadow-color: rgba(255, 77, 109, 0.15);
+      --bubble-bg: #fffbfb;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: var(--text-color);
+      padding: 20px;
+      /* Cute Custom Heart Cursor */
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23ff4d6d'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>") 8 8, auto;
+    }
+
+    /* Ambient background animations */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Particles Container */
+    #particle-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Floating Particles Styling */
+    .heart-particle, .note-particle, .seed-particle {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      animation: floatUp 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      opacity: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(var(--scale)) rotate(var(--rotate));
+        opacity: 0;
+      }
+    }
+
+    /* Main Card Container */
+    .card-container {
+      position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+      box-shadow: 0 15px 35px 0 var(--shadow-color), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card-container:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Cursive Header Text */
+    .header-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.8rem;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      text-shadow: 0 3px 6px rgba(255, 77, 109, 0.15);
+      animation: heartbeat 2s infinite ease-in-out;
+      user-select: none;
+      display: inline-block;
+      transition: all 0.5s ease;
+    }
+
+    .header-text.love-explosion {
+      animation: mega-heartbeat 0.6s ease-in-out infinite alternate;
+      color: #ff1f4f;
+      text-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+    }
+
+    .sub-text {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 25px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes mega-heartbeat {
+      0% { transform: scale(1.05) rotate(-1deg); }
+      100% { transform: scale(1.15) rotate(1deg); }
+    }
+
+    /* Interactive Stage */
+    .stage {
+      position: relative;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 200px;
+      margin: 10px 0 30px;
+      padding-bottom: 10px;
+      border-bottom: 3px dashed rgba(255, 182, 193, 0.4);
+    }
+
+    /* Speech Bubbles styling */
+    .bubble {
+      position: absolute;
+      background: var(--bubble-bg);
+      border: 2px solid #ffd1d8;
+      border-radius: 16px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(255, 77, 109, 0.08);
+      max-width: 150px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.8);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px 8px 0;
+      border-style: solid;
+      border-color: var(--bubble-bg) transparent;
+      display: block;
+      width: 0;
+    }
+
+    .bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 11px 9px 0;
+      border-style: solid;
+      border-color: #ffd1d8 transparent;
+      display: block;
+      width: 0;
+      z-index: -1;
+    }
+
+    .bubble.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .bubble-runner {
+      top: -15px;
+      left: 20px;
+    }
+
+    .bubble-zen {
+      top: 15px;
+      right: 25px;
+    }
+
+    /* Wheel Container & Components */
+    .wheel-outer-wrapper {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      transition: all 0.6s ease;
+    }
+
+    .wheel-svg-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Spin rotation animation */
+    #wheel-spinner {
+      transform-origin: 80px 80px;
+      animation: spin 1.2s linear infinite;
+      transition: animation-duration 0.5s ease;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Runner Hamster Positioning */
+    .runner-container {
+      position: absolute;
+      width: 65px;
+      height: 65px;
+      left: 48px;
+      bottom: 8px;
+      transform-origin: bottom center;
+      transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), left 1.5s, bottom 1.5s, opacity 0.5s ease;
+      z-index: 5;
+    }
+
+    /* Zen Hamster Positioning */
+    .zen-container {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+      transform-origin: bottom center;
+      z-index: 5;
+    }
+
+    /* Hug Mode Container (for holding hands) */
+    .hug-spot {
+      position: absolute;
+      bottom: 8px;
+      left: calc(50% - 40px);
+      width: 80px;
+      height: 80px;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 10;
+    }
+
+    .hug-spot.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Big Heart between Hugging Hamsters */
+    .giant-heart {
+      position: absolute;
+      top: -20px;
+      font-size: 2.2rem;
+      animation: pulsingHeart 0.8s ease-in-out infinite alternate;
+      z-index: 12;
+      filter: drop-shadow(0 3px 5px rgba(255, 77, 109, 0.3));
+    }
+
+    @keyframes pulsingHeart {
+      from { transform: scale(0.9); }
+      to { transform: scale(1.15); }
+    }
+
+    /* Hamster Action Animations CSS */
+
+    /* Zen breathing float */
+    .zen-breathing {
+      animation: zenFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes zenFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.02); }
+    }
+
+    /* Runner Trotting */
+    .running .hamster-body-group {
+      animation: runBody 0.15s ease-in-out infinite;
+    }
+    .running .foot-back {
+      animation: runFootBack 0.15s linear infinite;
+      transform-origin: 35px 78px;
+    }
+    .running .foot-front {
+      animation: runFootFront 0.15s linear infinite;
+      transform-origin: 48px 79px;
+    }
+    .running .hand-back {
+      animation: runHandBack 0.15s linear infinite;
+      transform-origin: 42px 62px;
+    }
+    .running .hand-front {
+      animation: runHandFront 0.15s linear infinite;
+      transform-origin: 62px 62px;
+    }
+
+    @keyframes runBody {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-2.5px) rotate(-1deg); }
+    }
+    @keyframes runFootBack {
+      0%, 100% { transform: rotate(0deg) translate(0, 0); }
+      50% { transform: rotate(-25deg) translate(-2px, -3px); }
+    }
+    @keyframes runFootFront {
+      0%, 100% { transform: rotate(0deg) translate(0, 0); }
+      50% { transform: rotate(25deg) translate(2px, -3px); }
+    }
+    @keyframes runHandBack {
+      0%, 100% { transform: rotate(-20deg); }
+      50% { transform: rotate(5deg) translate(1px, -1px); }
+    }
+    @keyframes runHandFront {
+      0%, 100% { transform: rotate(10deg); }
+      50% { transform: rotate(30deg) translate(2px, -1px); }
+    }
+
+    /* Runner Walking Animation */
+    .walking .hamster-body-group {
+      animation: walkBody 0.4s ease-in-out infinite;
+    }
+    .walking .foot-back {
+      animation: walkFootBack 0.4s ease-in-out infinite;
+      transform-origin: 35px 78px;
+    }
+    .walking .foot-front {
+      animation: walkFootFront 0.4s ease-in-out infinite;
+      transform-origin: 48px 79px;
+    }
+
+    /* Zen Hamster walking waddle */
+    .walking-zen {
+      animation: zenWaddle 0.4s ease-in-out infinite;
+    }
+
+    @keyframes zenWaddle {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-2px) rotate(4deg); }
+    }
+
+    @keyframes walkBody {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-1.5px) rotate(1deg); }
+    }
+    @keyframes walkFootBack {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      50% { transform: rotate(-15deg) translateX(-1px); }
+    }
+    @keyframes walkFootFront {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      50% { transform: rotate(15deg) translateX(1px); }
+    }
+
+    /* Runner Chewing (Nom Nom) */
+    .chewing .hamster-body-group {
+      animation: chewBody 0.12s ease-in-out infinite;
+    }
+    .chewing #mouth-path {
+      animation: chewMouth 0.12s ease-in-out infinite;
+      transform-origin: 52px 56px;
+    }
+
+    @keyframes chewBody {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.96) translateY(1px); }
+    }
+    @keyframes chewMouth {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.4); }
+    }
+
+    /* Controls Panel */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* Custom Premium Button Design */
+    .btn {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.15);
+    }
+
+    .btn-feed {
+      background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
+      color: #4c0519;
+      flex: 1;
+    }
+
+    .btn-feed:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(244, 114, 182, 0.35);
+    }
+
+    .btn-hug {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      flex: 1.2;
+    }
+
+    .btn-hug:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+    }
+
+    .btn-music {
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+      color: #064e3b;
+      width: 100%;
+    }
+
+    .btn-music:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(52, 211, 153, 0.35);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Reset Love State Button */
+    .btn-reset {
+      background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+      color: #0f172a;
+      display: none;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    /* Small decorations */
+    .heart-bg-deco {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      font-size: 2rem;
+      animation: heartbeat 2.5s infinite ease-in-out;
+      opacity: 0.6;
+    }
+
+    .star-bg-deco {
+      position: absolute;
+      bottom: -15px;
+      left: -15px;
+      font-size: 1.8rem;
+      animation: spin 10s linear infinite;
+      opacity: 0.65;
+    }
+
+    /* Note visual feedback when music plays */
+    .music-playing-icon {
+      display: inline-block;
+      animation: noteWiggle 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes noteWiggle {
+      from { transform: rotate(-10deg) scale(0.9); }
+      to { transform: rotate(15deg) scale(1.15); }
+    }
+
+    /* Mobile Adaptations */
+    @media (max-width: 480px) {
+      .card-container {
+        padding: 30px 20px 25px;
+        max-width: 100%;
+      }
+      .header-text {
+        font-size: 2.2rem;
+      }
+      .stage {
+        height: 180px;
+        margin-bottom: 20px;
+      }
+      .wheel-outer-wrapper {
+        width: 130px;
+        height: 130px;
+      }
+      .zen-container {
+        width: 75px;
+        height: 75px;
+      }
+      .runner-container {
+        width: 52px;
+        height: 52px;
+        left: 39px;
+        bottom: 6px;
+      }
+      .bubble {
+        font-size: 0.75rem;
+        max-width: 110px;
+        padding: 6px 8px;
+      }
+      .bubble-runner {
+        top: -18px;
+        left: 5px;
+      }
+      .bubble-zen {
+        top: 5px;
+        right: 10px;
+      }
+      .btn {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating particles are appended here -->
+  <div id="particle-container"></div>
+
+  <!-- Decorative floating symbols behind card -->
+  <div class="card-container">
+    <div class="heart-bg-deco">💖</div>
+    <div class="star-bg-deco">✨</div>
+
+    <!-- Cursive Heading -->
+    <h1 class="header-text" id="main-title">Te amo piezoza</h1>
+    <p class="sub-text" id="sub-title">Una dulce locura de amor...</p>
+
+    <!-- Hamster Play Stage -->
+    <div class="stage">
+      <!-- Dialogue Bubble for Runner Hamster -->
+      <div class="bubble bubble-runner" id="bubble-runner">¡Mírame correr! 🐹💨</div>
+      
+      <!-- Dialogue Bubble for Zen Hamster -->
+      <div class="bubble bubble-zen" id="bubble-zen">Paz y semillitas 🌸</div>
+
+      <!-- Left: Wheel containing the runner hamster -->
+      <div class="wheel-outer-wrapper" id="wheel-wrapper">
+        <div class="wheel-svg-container">
+          <!-- Wheel SVG -->
+          <svg id="wheel-svg" viewBox="0 0 160 160" width="100%" height="100%">
+            <defs>
+              <filter id="standShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-opacity="0.2"/>
+              </filter>
+            </defs>
+            <!-- Stand (Static background) -->
+            <g id="wheel-stand" filter="url(#standShadow)">
+              <path d="M50,150 L80,80 L110,150" stroke="#7a5c61" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              <line x1="25" y1="150" x2="135" y2="150" stroke="#7a5c61" stroke-width="8" stroke-linecap="round" />
+            </g>
+            <!-- Spinning Wheel Part -->
+            <g id="wheel-spinner">
+              <!-- Outer Rim -->
+              <circle cx="80" cy="80" r="70" stroke="#ff7b90" stroke-width="6" fill="none" />
+              <circle cx="80" cy="80" r="65" stroke="#ffe4e6" stroke-width="2" stroke-dasharray="4 4" fill="none" />
+              
+              <!-- Spokes -->
+              <line x1="80" y1="80" x2="80" y2="10" stroke="#ff7b90" stroke-width="3" />
+              <line x1="80" y1="80" x2="80" y2="150" stroke="#ff7b90" stroke-width="3" />
+              <line x1="80" y1="80" x2="10" y2="80" stroke="#ff7b90" stroke-width="3" />
+              <line x1="80" y1="80" x2="150" y2="80" stroke="#ff7b90" stroke-width="3" />
+              <line x1="80" y1="80" x2="30.5" y2="30.5" stroke="#ff7b90" stroke-width="2" />
+              <line x1="80" y1="80" x2="129.5" y2="129.5" stroke="#ff7b90" stroke-width="2" />
+              <line x1="80" y1="80" x2="30.5" y2="129.5" stroke="#ff7b90" stroke-width="2" />
+              <line x1="80" y1="80" x2="129.5" y2="30.5" stroke="#ff7b90" stroke-width="2" />
+              
+              <!-- Center Cap -->
+              <circle cx="80" cy="80" r="8" fill="#7a5c61" />
+              <circle cx="80" cy="80" r="4" fill="#fff" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Runner Hamster inside wheel (Screaming Hamster Meme) -->
+        <div class="runner-container running" id="runner-container">
+          <svg id="runner-svg" viewBox="0 0 100 100" width="100%" height="100%">
+            <defs>
+              <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.12"/>
+              </filter>
+              <linearGradient id="screamBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#cf9f72" />
+                <stop offset="50%" stop-color="#b07b4c" />
+                <stop offset="100%" stop-color="#805028" />
+              </linearGradient>
+              <linearGradient id="screamBelly" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#eaeaea" />
+              </linearGradient>
+            </defs>
+            <g class="hamster-body-group" filter="url(#shadow)">
+              <!-- Tail -->
+              <circle cx="22" cy="65" r="7" fill="#ffb088" />
+              <circle cx="21" cy="65" r="5" fill="#ffa07a" />
+              
+              <!-- Back Foot -->
+              <ellipse class="foot-back" cx="35" cy="78" rx="8" ry="4" fill="#ffa07a" />
+              
+              <!-- Body -->
+              <ellipse cx="50" cy="58" rx="28" ry="24" fill="url(#screamBody)" transform="rotate(-5 50 58)" />
+              
+              <!-- Belly -->
+              <ellipse cx="50" cy="64" rx="20" ry="16" fill="url(#screamBelly)" />
+              
+              <!-- Ears -->
+              <ellipse cx="36" cy="36" rx="9" ry="12" fill="#805028" transform="rotate(-15 36 36)" />
+              <ellipse cx="36" cy="37" rx="5" ry="8" fill="#ffa07a" transform="rotate(-15 36 37)" />
+              
+              <ellipse cx="52" cy="34" rx="9" ry="12" fill="#cf9f72" transform="rotate(10 52 34)" />
+              <ellipse cx="52" cy="35" rx="5" ry="8" fill="#ffa07a" transform="rotate(10 52 35)" />
+              
+              <!-- Panicked Eyes -->
+              <circle cx="40" cy="46" r="6" fill="#2d3748" />
+              <circle cx="39" cy="44" r="2" fill="#ffffff" />
+              
+              <circle cx="64" cy="46" r="6" fill="#2d3748" />
+              <circle cx="63" cy="44" r="2" fill="#ffffff" />
+              
+              <!-- Screaming Mouth -->
+              <ellipse id="mouth-path" cx="52" cy="56" rx="7" ry="10" fill="#111" />
+              <path d="M 49,60 C 49,60 52,58 55,60 C 55,62 52,65 49,60 Z" fill="#ff8899" />
+              
+              <!-- Panicked Paws -->
+              <ellipse class="hand-back" cx="42" cy="62" rx="5" ry="4" fill="#ffa07a" />
+              <ellipse class="hand-front" cx="62" cy="62" rx="5" ry="4" fill="#ffa07a" />
+              
+              <!-- Blush -->
+              <ellipse cx="34" cy="52" rx="5" ry="3" fill="#ff6b8b" opacity="0.4" />
+              <ellipse cx="68" cy="52" rx="5" ry="3" fill="#ff6b8b" opacity="0.4" />
+              
+              <!-- Front Foot -->
+              <ellipse class="foot-front" cx="48" cy="78" rx="8" ry="4" fill="#ffb088" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: Zen/Peace Hamster (Peace Sign Hamster Meme) -->
+      <div class="zen-container zen-breathing" id="zen-container">
+        <svg id="zen-svg" viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <filter id="shadow-zen" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.12"/>
+            </filter>
+            <linearGradient id="memeBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffedd5" />
+              <stop offset="100%" stop-color="#fed7aa" />
+            </linearGradient>
+            <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff7b90" />
+              <stop offset="100%" stop-color="#e53e3e" />
+            </linearGradient>
+          </defs>
+          
+          <g class="zen-body-group" filter="url(#shadow-zen)">
+            <!-- Sitting feet -->
+            <ellipse cx="32" cy="76" rx="8" ry="4" fill="#ffa07a" />
+            <ellipse cx="68" cy="76" rx="8" ry="4" fill="#ffa07a" />
+            
+            <!-- Tail -->
+            <circle cx="28" cy="70" r="5" fill="#ffa07a" opacity="0.4" />
+            
+            <!-- Body -->
+            <path d="M30,68 C30,45 38,36 50,36 C62,36 70,45 70,68 C70,78 65,82 50,82 C35,82 30,78 30,68 Z" fill="url(#memeBodyGradient)" />
+            
+            <!-- Belly -->
+            <path d="M36,70 C36,52 42,46 50,46 C58,46 64,52 64,70 C64,78 58,80 50,80 C42,80 36,78 36,70 Z" fill="#ffffff" />
+            
+            <!-- Ears -->
+            <ellipse cx="36" cy="32" rx="7" ry="10" fill="#fed7aa" transform="rotate(-20 36 32)" />
+            <ellipse cx="36" cy="33" rx="4" ry="7" fill="#ffa07a" transform="rotate(-20 36 33)" />
+            
+            <ellipse cx="64" cy="32" rx="7" ry="10" fill="#fed7aa" transform="rotate(20 64 32)" />
+            <ellipse cx="64" cy="33" rx="4" ry="7" fill="#ffa07a" transform="rotate(20 64 33)" />
+            
+            <!-- Cute Meme Eyes (Looking Left at the Screaming Hamster) -->
+            <circle cx="42" cy="46" r="4.5" fill="#2d3748" />
+            <circle cx="41" cy="45" r="1.5" fill="#ffffff" />
+            
+            <circle cx="58" cy="46" r="4.5" fill="#2d3748" />
+            <circle cx="57" cy="45" r="1.5" fill="#ffffff" />
+            
+            <!-- Blush -->
+            <circle cx="38" cy="54" r="4.5" fill="#ff6b8b" opacity="0.7" />
+            <circle cx="62" cy="54" r="4.5" fill="#ff6b8b" opacity="0.7" />
+            
+            <!-- Nose -->
+            <polygon points="49,51 51,51 50,53" fill="#ff8899" />
+            
+            <!-- Smiling Mouth -->
+            <path id="zen-mouth" d="M47,55 Q50,57 53,55" stroke="#2d3748" stroke-width="1.5" stroke-linecap="round" fill="none" />
+            
+            <!-- Flower decoration -->
+            <g class="flower" transform="translate(50, 24)">
+              <circle cx="-3" cy="0" r="3.5" fill="#ffffff" />
+              <circle cx="3" cy="0" r="3.5" fill="#ffffff" />
+              <circle cx="0" cy="-3" r="3.5" fill="#ffffff" />
+              <circle cx="0" cy="3" r="3.5" fill="#ffffff" />
+              <circle cx="0" cy="0" r="2.5" fill="#fcd34d" />
+            </g>
+ 
+            <!-- Raised Peace Hand (Left side of SVG, showing V sign) -->
+            <path d="M38,60 C32,56 26,45 28,40" stroke="#ffa07a" stroke-width="6" stroke-linecap="round" fill="none" />
+            <rect x="24" y="30" width="4.5" height="11" rx="2" fill="#ffa07a" transform="rotate(-15 24 30)" />
+            <rect x="30" y="30" width="4.5" height="11" rx="2" fill="#ffa07a" transform="rotate(15 30 30)" />
+
+            <!-- Left Paw resting on belly -->
+            <ellipse class="zen-hand-right" cx="58" cy="62" rx="6" ry="5" fill="#ffa07a" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Hidden spot that lights up during the hugging action -->
+      <div class="hug-spot" id="hug-spot">
+        <div class="giant-heart">💖</div>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="controls">
+      <div class="buttons-row">
+        <!-- Feed Girasol Button -->
+        <button class="btn btn-feed" id="feed-btn">
+          <span>🌻</span> Semillita
+        </button>
+
+        <!-- Hug Button -->
+        <button class="btn btn-hug" id="hug-btn">
+          <span>💕</span> ¡Hacerse mimos!
+        </button>
+      </div>
+
+      <!-- Retro Synth Music Box Button -->
+      <button class="btn btn-music" id="music-btn">
+        <span class="music-icon" id="music-icon">🎵</span> Música: OFF
+      </button>
+
+      <!-- Reset Action Button -->
+      <button class="btn btn-reset" id="reset-btn">
+        <span>🔄</span> Empezar de nuevo
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* Variables & Elements Setup */
+    const particleContainer = document.getElementById('particle-container');
+    const runnerContainer = document.getElementById('runner-container');
+    const zenContainer = document.getElementById('zen-container');
+    const wheelWrapper = document.getElementById('wheel-wrapper');
+    const wheelSpinner = document.getElementById('wheel-spinner');
+    const mainTitle = document.getElementById('main-title');
+    const subTitle = document.getElementById('sub-title');
+    
+    // Buttons
+    const feedBtn = document.getElementById('feed-btn');
+    const hugBtn = document.getElementById('hug-btn');
+    const musicBtn = document.getElementById('music-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const hugSpot = document.getElementById('hug-spot');
+
+    // Speech Bubbles
+    const bubbleRunner = document.getElementById('bubble-runner');
+    const bubbleZen = document.getElementById('bubble-zen');
+
+    // Audio State
+    let audioCtx = null;
+    let musicTimeout = null;
+    let currentNoteIndex = 0;
+    let isMusicPlaying = false;
+    let particleInterval = null;
+
+    // Hamster State
+    let activeState = 'running'; // 'running', 'chewing', 'walking', 'hugging'
+    let isSpeedUp = false;
+
+    // Dialogue collections
+    const runnerPhrases = [
+      "¡AAAAAAAAAAAAAAAAHHH! 🏃‍♂️💨",
+      "¡ME DA ALGOOOOO! ⚡🏃‍♂️",
+      "¡TE AMO PIEZOZAAAA! AAAAAH",
+      "¡AUXILIO, CUÁNTO AMOR! 🆘❤️",
+      "¡SÁLVAME CON TU ABRAZO! 🎡💨"
+    ];
+
+    const zenPhrases = [
+      "Tranquilo, mi amor, todo va a estar bien ✌️",
+      "Respira, loquito lindo... 🌸",
+      "¡Qué escándalo! Jajaja 🤭",
+      "Paz, amor y V de victoria ✌️✨",
+      "Ven aquí, asustadito... 🤗"
+    ];
+
+    /* PARTICLE GENERATOR SYSTEM */
+    function spawnParticle(x, y, type = 'heart') {
+      const particle = document.createElement('div');
+      
+      if (type === 'heart') {
+        particle.className = 'heart-particle';
+        const hearts = ['❤️', '💖', '💝', '💕', '💗'];
+        particle.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+      } else if (type === 'note') {
+        particle.className = 'note-particle';
+        const notes = ['🎵', '🎶', '🎼', '✨'];
+        particle.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+      } else if (type === 'seed') {
+        particle.className = 'seed-particle';
+        particle.innerHTML = '🌻';
+      }
+
+      // Physics/Motion Randomizations
+      const xOffset = (Math.random() - 0.5) * 120; // x spread
+      const yOffset = -(Math.random() * 180 + 120); // float up distance
+      const scale = Math.random() * 0.7 + 0.6; // scale factor
+      const rotate = (Math.random() - 0.5) * 80; // random rotation
+
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      particle.style.setProperty('--x', `${xOffset}px`);
+      particle.style.setProperty('--y', `${yOffset}px`);
+      particle.style.setProperty('--scale', scale);
+      particle.style.setProperty('--rotate', `${rotate}deg`);
+
+      particleContainer.appendChild(particle);
+
+      // Clean up DOM elements after animation completes
+      setTimeout(() => {
+        particle.remove();
+      }, 2200);
+    }
+
+    // Spawn hearts periodically from the running hamster
+    function startAutoHearts() {
+      if (particleInterval) clearInterval(particleInterval);
+      
+      particleInterval = setInterval(() => {
+        if (activeState === 'running') {
+          // Get current coordinates of runner container to emit hearts
+          const rect = runnerContainer.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top;
+          
+          // Speed up creates more hearts
+          const count = isSpeedUp ? 3 : 1;
+          for (let i = 0; i < count; i++) {
+            setTimeout(() => spawnParticle(x, y, 'heart'), i * 150);
+          }
+        }
+      }, 700);
+    }
+
+    startAutoHearts();
+
+    /* BUBBLE MANAGEMENT */
+    let dialogueInterval = null;
+    
+    function showDialogue(bubbleElement, phrase, duration = 3000) {
+      bubbleElement.innerHTML = phrase;
+      bubbleElement.classList.add('show');
+      
+      setTimeout(() => {
+        bubbleElement.classList.remove('show');
+      }, duration);
+    }
+
+    function startRandomDialogues() {
+      if (dialogueInterval) clearInterval(dialogueInterval);
+      
+      // Initial trigger after delay
+      setTimeout(() => {
+        if (activeState === 'running') {
+          showDialogue(bubbleRunner, runnerPhrases[Math.floor(Math.random() * runnerPhrases.length)]);
+        }
+      }, 1500);
+
+      setTimeout(() => {
+        if (activeState === 'running') {
+          showDialogue(bubbleZen, zenPhrases[Math.floor(Math.random() * zenPhrases.length)]);
+        }
+      }, 3500);
+
+      // Intermittent cycles
+      dialogueInterval = setInterval(() => {
+        if (activeState === 'running') {
+          const rand = Math.random();
+          if (rand < 0.4) {
+            showDialogue(bubbleRunner, runnerPhrases[Math.floor(Math.random() * runnerPhrases.length)]);
+          } else if (rand < 0.8) {
+            showDialogue(bubbleZen, zenPhrases[Math.floor(Math.random() * zenPhrases.length)]);
+          }
+        }
+      }, 6500);
+    }
+
+    startRandomDialogues();
+
+    /* INTERACTION 1: FEED THE HAMSTER */
+    feedBtn.addEventListener('click', () => {
+      initAudio(); // Initialize audio context on user click for iOS compatibility
+      if (activeState !== 'running') return;
+      
+      activeState = 'chewing';
+      feedBtn.disabled = true;
+      hugBtn.disabled = true;
+
+      // Spawn sunflower seed particles falling onto runner
+      const runnerRect = runnerContainer.getBoundingClientRect();
+      const rx = runnerRect.left + runnerRect.width / 2;
+      const ry = runnerRect.top - 50;
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          spawnParticle(rx + (Math.random() - 0.5) * 30, ry, 'seed');
+        }, i * 150);
+      }
+
+      // Stop running & change animation to chewing
+      runnerContainer.classList.remove('running');
+      runnerContainer.classList.add('chewing');
+      
+      // Slow down wheel rapidly
+      wheelSpinner.style.animationDuration = '8s';
+      
+      // Dialogues
+      showDialogue(bubbleRunner, "¡Ooooh! ¿Una semillita? ¡OM NOM NOM NOM! 🌻🐹", 2500);
+      showDialogue(bubbleZen, "¡Qué provecho, glotoncito! 🥰", 2500);
+
+      // Play short happy synth sounds for eating
+      playChime([659.25, 783.99, 880.00], 100);
+
+      // Finish eating and run SUPER FAST
+      setTimeout(() => {
+        if (activeState !== 'chewing') return; // in case reset was pressed
+        
+        activeState = 'running';
+        isSpeedUp = true;
+        
+        runnerContainer.classList.remove('chewing');
+        runnerContainer.classList.add('running');
+        
+        // Super speed wheel
+        wheelSpinner.style.animationDuration = '0.35s';
+        
+        // Speed up the trotting legs in CSS via speed class
+        runnerContainer.style.transform = 'scale(1.05)';
+        
+        showDialogue(bubbleRunner, "¡WOW! ¡ESTOY LLENO DE ENERGÍA DE AMOR! ⚡🏃‍♂️💨", 3000);
+        showDialogue(bubbleZen, "¡Cuidado con la velocidad! 😂💖", 3000);
+
+        // Hearts explosion
+        const newRect = runnerContainer.getBoundingClientRect();
+        const nx = newRect.left + newRect.width / 2;
+        const ny = newRect.top;
+        for (let i = 0; i < 15; i++) {
+          setTimeout(() => spawnParticle(nx, ny, 'heart'), i * 80);
+        }
+
+        // Return to normal speed after 5 seconds
+        setTimeout(() => {
+          if (activeState === 'running' && isSpeedUp) {
+            isSpeedUp = false;
+            wheelSpinner.style.animationDuration = '1.2s';
+            runnerContainer.style.transform = 'scale(1)';
+            feedBtn.disabled = false;
+            hugBtn.disabled = false;
+          }
+        }, 5000);
+
+      }, 3000);
+    });
+
+    /* INTERACTION 2: HUG ACTION (THE GRAND FINALE) */
+    hugBtn.addEventListener('click', () => {
+      initAudio(); // Initialize audio context on user click for iOS compatibility
+      if (activeState !== 'running') return;
+      
+      activeState = 'walking';
+      
+      // Disable interaction panel
+      feedBtn.disabled = true;
+      hugBtn.disabled = true;
+      feedBtn.style.display = 'none';
+      hugBtn.style.display = 'none';
+      
+      // Slow down wheel to stop
+      wheelSpinner.style.transition = 'animation-duration 2.5s ease-out';
+      wheelSpinner.style.animationDuration = '6s';
+      
+      // Dialogue bubble progression
+      showDialogue(bubbleRunner, "¡Vamos al centro, piezoza! 🏃‍♂️💕", 2500);
+      showDialogue(bubbleZen, "¡Sí, a darnos muchos mimos! 🤗✨", 2500);
+
+      // Stop trotting, change to walking
+      runnerContainer.classList.remove('running');
+      runnerContainer.classList.add('walking');
+      
+      // Add waddle class to Zen hamster
+      zenContainer.classList.remove('zen-breathing');
+      zenContainer.classList.add('walking-zen');
+
+      // Calculate path to center of the stage
+      const stage = document.querySelector('.stage');
+      const stageRect = stage.getBoundingClientRect();
+      const runnerRect = runnerContainer.getBoundingClientRect();
+      const zenRect = zenContainer.getBoundingClientRect();
+
+      const stageCenter = stageRect.left + stageRect.width / 2;
+      const runnerCenter = runnerRect.left + runnerRect.width / 2;
+      const zenCenter = zenRect.left + zenRect.width / 2;
+
+      // Distance to meet in the middle
+      const runnerDistance = stageCenter - runnerCenter - 25; // 25px left of center
+      const zenDistance = stageCenter - zenCenter + 25;       // 25px right of center
+      
+      // Walk towards each other
+      setTimeout(() => {
+        runnerContainer.style.transform = `translateX(${runnerDistance}px)`;
+        zenContainer.style.transform = `translateX(${zenDistance}px)`;
+        
+        // Stop wheel completely
+        setTimeout(() => {
+          wheelSpinner.style.animation = 'none';
+        }, 1200);
+
+        // When they meet in the center
+        setTimeout(() => {
+          if (activeState !== 'walking') return; // safety check
+          
+          activeState = 'hugging';
+          
+          // Stop walking movements
+          runnerContainer.classList.remove('walking');
+          zenContainer.classList.remove('walking-zen');
+          
+          // Hide individual hamsters, show hugging visual alignment
+          runnerContainer.style.opacity = '0';
+          zenContainer.style.opacity = '0';
+          
+          // Trigger Hug Spot activation
+          hugSpot.classList.add('active');
+          
+          // Render a big double-hamster hug inside hugSpot
+          hugSpot.innerHTML = `
+            <div class="giant-heart">💖</div>
+            <!-- Cuddled Hamsters SVG -->
+            <svg id="hugging-svg" viewBox="0 0 160 100" width="140" height="90">
+              <defs>
+                <filter id="hugShadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+                </filter>
+                <linearGradient id="bodyGradientRunner" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#cf9f72" /><stop offset="100%" stop-color="#805028" />
+                </linearGradient>
+                <linearGradient id="bodyGradientZen" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffedd5" /><stop offset="100%" stop-color="#fed7aa" />
+                </linearGradient>
+                <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ff7b90" /><stop offset="100%" stop-color="#e53e3e" />
+                </linearGradient>
+              </defs>
+              <g filter="url(#hugShadow)">
+                <!-- Runner Hamster (Left - now happy and calm, leaning right) -->
+                <g transform="translate(25, 10) rotate(10)">
+                  <circle cx="20" cy="55" r="6" fill="#805028"/>
+                  <ellipse cx="32" cy="68" rx="8" ry="4" fill="#ffa07a" />
+                  <ellipse cx="48" cy="50" rx="24" ry="18" fill="url(#bodyGradientRunner)" />
+                  <ellipse cx="52" cy="53" rx="15" ry="12" fill="#fff5eb" />
+                  <ellipse cx="38" cy="32" rx="7" ry="10" fill="#805028" transform="rotate(-10 38 32)"/>
+                  <ellipse cx="38" cy="33" rx="4" ry="7" fill="#ffa07a" transform="rotate(-10 38 33)"/>
+                  <!-- Closed happy eye -->
+                  <path d="M 56,40 Q 60,44 64,40" stroke="#2d3748" stroke-width="2.2" stroke-linecap="round" fill="none" />
+                  <circle cx="64" cy="46" r="4" fill="#ff6b8b" opacity="0.7" />
+                  <!-- Hugging arm -->
+                  <ellipse cx="58" cy="58" rx="7" ry="4" fill="#ffa07a" transform="rotate(30 58 58)" />
+                  <!-- Happy mouth (smile) -->
+                  <path d="M57,48 Q59,50 61,48" stroke="#2d3748" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                </g>
+                
+                <!-- Zen Hamster (Right - happy, hugging left) -->
+                <g transform="translate(68, 10) scale(-1, 1) rotate(10)">
+                  <circle cx="20" cy="55" r="6" fill="#ffa07a" opacity="0.4"/>
+                  <ellipse cx="32" cy="68" rx="8" ry="4" fill="#ffa07a" />
+                  <ellipse cx="48" cy="50" rx="24" ry="18" fill="url(#bodyGradientZen)" />
+                  <ellipse cx="52" cy="53" rx="15" ry="12" fill="#ffffff" />
+                  <ellipse cx="38" cy="32" rx="7" ry="10" fill="#cbd5e1" transform="rotate(-10 38 32)"/>
+                  <ellipse cx="38" cy="33" rx="4" ry="7" fill="#ffa07a" transform="rotate(-10 38 33)"/>
+                  <!-- Closed happy eye -->
+                  <path d="M 56,40 Q 60,44 64,40" stroke="#2d3748" stroke-width="2.2" stroke-linecap="round" fill="none" />
+                  <circle cx="64" cy="46" r="4" fill="#ff6b8b" opacity="0.7" />
+                  <!-- Hugging arm -->
+                  <ellipse cx="58" cy="58" rx="7" ry="4" fill="#ffa07a" transform="rotate(30 58 58)" />
+                  <!-- Happy mouth (smile) -->
+                  <path d="M57,48 Q59,50 61,48" stroke="#2d3748" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                </g>
+                
+                <!-- Double paws touching to hold a big flower/heart -->
+                <path d="M 64, 62 C 64,62 76,46 80,48 C 84,46 96,62 96,62 C 96,62 88,67 80,64 C 72,67 64,62 64,62 Z" fill="#ffa07a" />
+                <path d="M80,56 C80,56 77.5,51.5 75,54 C72.5,56.5 75,61 80,64.5 C85,61 87.5,56.5 85,54 C82.5,51.5 80,56 80,56 Z" fill="url(#heartGradient)" />
+              </g>
+            </svg>
+          `;
+
+          // UI Glow Up & Dialogue
+          mainTitle.classList.add('love-explosion');
+          mainTitle.innerHTML = "¡Te amo piezoza!";
+          subTitle.innerHTML = "¡La combinación perfecta de mimos y locura! 💖";
+          
+          showDialogue(bubbleRunner, "¡Eres mi mundo entero! 🌎❤️", 4000);
+          showDialogue(bubbleZen, "¡Siempre juntitos, amor! 🥰", 4000);
+
+          // Massive Hearts explosion!
+          const hugRect = hugSpot.getBoundingClientRect();
+          const hx = hugRect.left + hugRect.width / 2;
+          const hy = hugRect.top + hugRect.height / 2;
+          
+          for (let i = 0; i < 45; i++) {
+            setTimeout(() => {
+              spawnParticle(hx + (Math.random() - 0.5) * 50, hy + (Math.random() - 0.5) * 30, 'heart');
+            }, i * 60);
+          }
+
+          // Play lovely chord chimes
+          playLovelyFinale();
+
+          // Reveal reset button
+          resetBtn.style.display = 'block';
+
+        }, 1500); // Wait for walking transition
+      }, 500); // Brief delay before walking starts
+    });
+
+    /* INTERACTION 3: RESET */
+    resetBtn.addEventListener('click', () => {
+      activeState = 'running';
+      isSpeedUp = false;
+
+      // Restore button layout
+      resetBtn.style.display = 'none';
+      feedBtn.style.display = 'flex';
+      hugBtn.style.display = 'flex';
+      feedBtn.disabled = false;
+      hugBtn.disabled = false;
+
+      // Reset Title & Subtext
+      mainTitle.classList.remove('love-explosion');
+      mainTitle.innerHTML = "Te amo piezoza";
+      subTitle.innerHTML = "Una dulce locura de amor...";
+
+      // Reset Hamster visibility, classes & styles
+      runnerContainer.style.opacity = '1';
+      zenContainer.style.opacity = '1';
+      runnerContainer.style.transform = 'translateX(0px)';
+      runnerContainer.classList.remove('walking');
+      runnerContainer.classList.add('running');
+      
+      zenContainer.style.transform = 'translateX(0px)';
+      zenContainer.classList.remove('walking-zen');
+      zenContainer.classList.add('zen-breathing');
+      
+      hugSpot.classList.remove('active');
+      hugSpot.innerHTML = '<div class="giant-heart">💖</div>';
+
+      // Reactivate wheel spin
+      wheelSpinner.style.transition = 'none';
+      wheelSpinner.style.animation = 'spin 1.2s linear infinite';
+      wheelSpinner.style.animationDuration = '1.2s';
+
+      // Bubbles
+      bubbleRunner.classList.remove('show');
+      bubbleZen.classList.remove('show');
+
+      startRandomDialogues();
+      startAutoHearts();
+    });
+
+    /* WEB AUDIO API MUSIC BOX MUSIC SYSTEM */
+    // Note frequencies in Hz
+    const notes = {
+      'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23, 'G4': 392.00, 'A4': 440.00, 'B4': 493.88,
+      'C5': 523.25, 'D5': 587.33, 'E5': 659.25, 'F5': 698.46, 'G5': 783.99, 'A5': 880.00, 'B5': 987.77,
+      'C6': 1046.50, 'D6': 1174.66, 'E6': 1318.51, 'F6': 1396.91, 'G6': 1567.98
+    };
+
+    // Melody: "Can't Help Falling in Love" (Retro-style Music Box Adaptation)
+    const melody = [
+      { note: 'C5', dur: 0.8 },
+      { note: 'G4', dur: 0.8 },
+      { note: 'C5', dur: 0.8 },
+      { note: 'D5', dur: 0.4 },
+      { note: 'E5', dur: 0.8 },
+      { note: 'D5', dur: 0.8 },
+      { note: 'C5', dur: 1.6 },
+      
+      { note: 'E5', dur: 0.4 },
+      { note: 'F5', dur: 0.4 },
+      { note: 'G5', dur: 0.8 },
+      { note: 'A5', dur: 0.8 },
+      { note: 'G5', dur: 0.8 },
+      { note: 'F5', dur: 0.4 },
+      { note: 'E5', dur: 0.8 },
+      { note: 'D5', dur: 0.8 },
+      { note: 'C5', dur: 1.6 },
+      
+      { note: 'B4', dur: 0.8 },
+      { note: 'C5', dur: 0.8 },
+      { note: 'D5', dur: 0.8 },
+      { note: 'G4', dur: 0.8 },
+      { note: 'A4', dur: 0.8 },
+      { note: 'B4', dur: 0.8 },
+      { note: 'C5', dur: 1.6 }
+    ];
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    // Play a single note with retro music box synthesis (triangle wave + soft reverb/delay sweep)
+    function playNote(freq, duration) {
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      const filterNode = audioCtx.createBiquadFilter();
+
+      osc.type = 'triangle'; // Sweet woodwind/chime feel
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      filterNode.type = 'lowpass';
+      filterNode.frequency.setValueAtTime(1400, audioCtx.currentTime);
+
+      // Enveloping: Fast attack, slow exponential release decay (music box pluck)
+      const now = audioCtx.currentTime;
+      gainNode.gain.setValueAtTime(0, now);
+      gainNode.gain.linearRampToValueAtTime(0.25, now + 0.03); // dynamic peak
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      osc.connect(filterNode);
+      filterNode.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + duration);
+    }
+
+    // Sequencer loop
+    function runMusicSequencer() {
+      if (!isMusicPlaying) return;
+
+      const currentItem = melody[currentNoteIndex];
+      const freq = notes[currentItem.note];
+      
+      if (freq) {
+        playNote(freq, currentItem.dur * 0.95);
+        
+        // Spawn musical notes floating up from the music button!
+        const mBtnRect = musicBtn.getBoundingClientRect();
+        const mx = mBtnRect.left + mBtnRect.width / 2 + window.scrollX;
+        const my = mBtnRect.top + window.scrollY;
+        spawnParticle(mx, my, 'note');
+      }
+
+      const delay = currentItem.dur * 1000;
+      currentNoteIndex = (currentNoteIndex + 1) % melody.length;
+      
+      musicTimeout = setTimeout(runMusicSequencer, delay);
+    }
+
+    function toggleMusic() {
+      initAudio();
+      
+      if (isMusicPlaying) {
+        // Stop Music
+        isMusicPlaying = false;
+        clearTimeout(musicTimeout);
+        musicBtn.innerHTML = '<span class="music-icon" id="music-icon">🎵</span> Música: OFF';
+        musicBtn.classList.remove('btn-playing');
+        musicIcon.classList.remove('music-playing-icon');
+      } else {
+        // Start Music
+        isMusicPlaying = true;
+        musicBtn.innerHTML = '<span class="music-icon music-playing-icon" id="music-icon">🎶</span> Música: ON';
+        musicBtn.classList.add('btn-playing');
+        
+        // Resume context in browsers if suspended (due to autoplay blocks)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        
+        currentNoteIndex = 0;
+        runMusicSequencer();
+      }
+    }
+
+    musicBtn.addEventListener('click', toggleMusic);
+
+    /* EXTRA AUDIO EFFECTS */
+    // Eating seeds chime
+    function playChime(frequencyArray, noteGapMs) {
+      initAudio();
+      if (!audioCtx || audioCtx.state === 'suspended') return;
+
+      frequencyArray.forEach((freq, idx) => {
+        setTimeout(() => {
+          playNote(freq, 0.4);
+        }, idx * noteGapMs);
+      });
+    }
+
+    // Hug Finale lovely chords
+    function playLovelyFinale() {
+      initAudio();
+      if (!audioCtx || audioCtx.state === 'suspended') return;
+
+      // Arpeggiate major C chord into sweet high note
+      const arpeggio = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+      arpeggio.forEach((freq, idx) => {
+        setTimeout(() => {
+          playNote(freq, 1.2);
+        }, idx * 120);
+      });
+    }
+  </script>
+</body>
+</html>
